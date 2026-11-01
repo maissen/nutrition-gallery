@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Salads</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+      :root{
+        --bg:#f5f8f4; --card:#ffffff; --ink:#15231a; --muted:#5d6e63; --line:#dce5dd;
+        --leaf:#2d6a4f; --leaf-ink:#ffffff; --lime:#cfe66a; --lime-ink:#1c2a0a; --shadow:0 1px 2px rgba(21,35,26,.06),0 8px 24px rgba(21,35,26,.06);
+        --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+        --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+      }
+      @media (prefers-color-scheme:dark){
+        :root:not([data-theme="light"]){--bg:#0f1713;--card:#17231c;--ink:#e8f0ea;--muted:#9bb0a2;--line:#27382d;--leaf:#7fcf9f;--leaf-ink:#0c1a12;--lime:#cfe66a;--lime-ink:#1c2a0a;--shadow:none}
+      }
+      *{box-sizing:border-box}
+      html{-webkit-text-size-adjust:100%}
+      body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.5 var(--body);padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+      .wrap{max-width:1120px;margin:0 auto;padding:clamp(20px,5vw,56px) clamp(16px,4vw,32px)}
+      h1{font:700 clamp(2.4rem,8vw,4.5rem)/1 var(--display);letter-spacing:-.03em;margin:0 0 .4rem}
+      .sub{color:var(--muted);margin:0 0 1.5rem;max-width:46ch}
+
+      .btn{font:700 1rem var(--body);border:0;border-radius:14px;padding:13px 22px;cursor:pointer;background:var(--lime);color:var(--lime-ink);transition:transform .1s}
+      .btn:active{transform:scale(.98)}
+      .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:500;padding:12px 18px}
+      .hero-actions{margin:0 0 2.5rem}
+
+      .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:20px}
+      .card{all:unset;box-sizing:border-box;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:var(--shadow);transition:border-color .15s}
+      .card:hover{border-color:var(--leaf)}
+      .thumb{aspect-ratio:4/3;background:linear-gradient(135deg,#dff0d2,#b9dcc4);position:relative;overflow:hidden}
+      .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+      .thumb .ph{position:absolute;inset:0;display:grid;place-items:center;font:700 4rem var(--display);color:rgba(45,106,79,.35)}
+      .thumb.loaded .ph{display:none}
+      .score{position:absolute;top:12px;right:12px;background:var(--lime);color:var(--lime-ink);font:700 .85rem var(--body);padding:5px 10px;border-radius:999px}
+      .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}
+      .cat{color:var(--muted);font-size:.85rem}
+      .name{font:500 1.2rem/1.25 var(--display);letter-spacing:-.01em}
+      .meta{color:var(--muted);font-size:.9rem;margin-top:4px}
+      .ings{color:var(--muted);font-size:.9rem;line-height:1.45;margin-top:6px;padding-top:10px;border-top:1px solid var(--line)}
+      .card:focus-visible,.btn:focus-visible,.x:focus-visible{outline:3px solid var(--leaf);outline-offset:2px}
+
+      dialog{border:0;border-radius:24px;padding:0;width:min(560px,calc(100% - 24px));max-height:calc(100dvh - 24px);background:var(--card);color:var(--ink);box-shadow:0 24px 80px rgba(0,0,0,.35);overflow:hidden}
+      dialog::backdrop{background:rgba(10,20,14,.55)}
+      dialog[open]{animation:pop .2s ease-out}
+      @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}}
+      .d-scroll{overflow-y:auto;max-height:calc(100dvh - 24px)}
+      .d-body{padding:22px clamp(18px,4vw,28px) 26px}
+      .d-body h3{font:700 1.7rem/1.15 var(--display);letter-spacing:-.02em;margin:4px 0 8px}
+      .x{position:absolute;top:12px;left:12px;z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.9);color:#15231a;font-size:1.3rem;cursor:pointer}
+      .facts{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
+      .fact{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.88rem;color:var(--muted)}
+      .ing{list-style:none;margin:0;padding:0}
+      .ing li{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line)}
+      .ing li:last-child{border-bottom:0}
+      .ing .amt{color:var(--muted);text-align:right;font-size:.92rem}
+      .d-body h4{font:500 1rem var(--display);margin:22px 0 6px}
+      .notes{margin:0;padding-left:1.1rem;color:var(--muted)}
+      .d-actions{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap}
+      .tag{display:inline-block;background:var(--lime);color:var(--lime-ink);font:700 .8rem var(--body);padding:4px 10px;border-radius:999px;margin-bottom:6px}
+
+      /* Dialog thumbnail: stacked on small screens, side-by-side on large */
+      .d-thumb{aspect-ratio:16/9}
+      @media (min-width:900px){
+        dialog{width:min(980px,calc(100% - 48px))}
+        .d-scroll{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
+        .d-thumb{aspect-ratio:auto;min-height:100%}
+        .d-thumb img{position:absolute;inset:0}
+      }
+
+      @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+      @media (max-width:520px){.hero-actions .btn{width:100%}}
+    </style>
+  </head>
+  
+  <body>
+    <main class="wrap">
+      <h1>Salads</h1>
+      <p class="sub" id="sub"></p>
+
+      <div class="hero-actions"><button class="btn" id="suggest" type="button">Suggest a salad for today</button></div>
+
+      <section class="grid" id="grid" aria-label="Salads"></section>
+    </main>
+
+    <dialog id="dlg" aria-labelledby="dTitle"><div class="d-scroll" id="dBody"></div></dialog>
+
+    <script src="salads.js"></script>
+    <script>
+      // Normalize the data file's field names to what the UI reads.
+      const salads = SALADS.map(s => ({
+        ...s,
+        score: s.score ?? s.score_out_of_10,
+        calories: s.calories ?? s.estimated_calories_kcal,
+        servings: s.servings ?? 1,
+        ingredients: (s.ingredients || []).map(i => ({ ...i, calories: i.calories ?? i.calories_kcal }))
+      }));
+
+      const $ = id => document.getElementById(id);
+      const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+      let last = null;
+
+      // Image cache: blobs are stored in IndexedDB so images load once, then work from local storage.
+      // If the image host blocks cross-origin reads (CORS), it falls back to a normal <img> load,
+      // which the browser caches on its own.
+      const DB_NAME = "salad-images", STORE = "img";
+      const dbPromise = new Promise(res => {
+        try {
+          const r = indexedDB.open(DB_NAME, 1);
+          r.onupgradeneeded = () => r.result.createObjectStore(STORE);
+          r.onsuccess = () => res(r.result);
+          r.onerror = () => res(null);
+        } catch { res(null); }
+      });
+      const idb = async (mode, fn) => {
+        const db = await dbPromise; if (!db) return null;
+        return new Promise(res => {
+          try {
+            const rq = fn(db.transaction(STORE, mode).objectStore(STORE));
+            rq.onsuccess = () => res(rq.result ?? null);
+            rq.onerror = () => res(null);
+          } catch { res(null); }
+        });
+      };
+      const urlCache = new Map(); // remote url -> Promise<displayable url>
+      function imageUrl(url){
+        if (!urlCache.has(url)) urlCache.set(url, (async () => {
+          let blob = await idb("readonly", st => st.get(url));
+          if (!blob) {
+            try {
+              const r = await fetch(url, { mode: "cors" });
+              const b = r.ok ? await r.blob() : null;
+              if (b && b.type.startsWith("image/")) { blob = b; idb("readwrite", st => st.put(b, url)); }
+            } catch {}
+          }
+          return blob ? URL.createObjectURL(blob) : url;
+        })());
+        return urlCache.get(url);
+      }
+      function hydrate(root){
+        root.querySelectorAll("img[data-src]").forEach(img => {
+          img.onload = () => img.closest(".thumb").classList.add("loaded");
+          img.onerror = () => img.remove();
+          imageUrl(img.dataset.src).then(u => { img.src = u; });
+        });
+      }
+
+      function amount(i){
+        const parts = [];
+        if (i.quantity != null) parts.push(`${i.quantity}${i.unit && i.unit.length <= 2 ? "" : " "}${i.unit || ""}`.trim());
+        if (i.weighing) parts.push(i.weighing);
+        if (i.calories != null) parts.push(`${i.calories} kcal`);
+        return parts.join(" · ");
+      }
+
+      function renderGrid(){
+        $("grid").innerHTML = salads.map(s => `
+          <button class="card" data-id="${esc(s.id)}" type="button">
+            <div class="thumb">
+              <div class="ph">${esc((s.name||"?")[0])}</div>
+              ${s.thumbnail_url ? `<img data-src="${esc(s.thumbnail_url)}" alt="">` : ""}
+              ${s.score != null ? `<span class="score">★ ${esc(s.score)}</span>` : ""}
+            </div>
+            <div class="body">
+              <span class="cat">${esc(s.category)}</span>
+              <span class="name">${esc(s.name)}</span>
+              <span class="meta">${esc(s.calories)} kcal · ${esc(s.servings)} serving${s.servings == 1 ? "" : "s"}</span>
+              <span class="ings">${(s.ingredients||[]).map(i => esc(i.name)).join(", ")}</span>
+            </div>
+          </button>`).join("");
+        hydrate($("grid"));
+        $("sub").textContent = `${salads.length} salads. Not sure what to eat? Let me choose one.`;
+      }
+
+      function openSalad(s, suggested){
+        $("dBody").innerHTML = `
+          <button class="x" type="button" aria-label="Close" id="dx">×</button>
+          <div class="thumb d-thumb">
+            <div class="ph">${esc((s.name||"?")[0])}</div>
+            ${s.thumbnail_url ? `<img data-src="${esc(s.thumbnail_url)}" alt="">` : ""}
+          </div>
+          <div class="d-body">
+            ${suggested ? `<span class="tag">Today’s pick</span>` : ""}
+            <div class="cat">${esc(s.category)}</div>
+            <h3 id="dTitle">${esc(s.name)}</h3>
+            <div class="facts">
+              ${s.score != null ? `<span class="fact">★ ${esc(s.score)}</span>` : ""}
+              <span class="fact">${esc(s.calories)} kcal</span>
+              <span class="fact">${esc(s.servings)} serving${s.servings == 1 ? "" : "s"}</span>
+            </div>
+            <ul class="ing">${(s.ingredients||[]).map(i =>
+              `<li><span class="n">${esc(i.name)}</span><span class="amt">${esc(amount(i))}</span></li>`).join("")}</ul>
+            ${(s.preparation_notes||[]).length ? `<h4>Preparation</h4><ul class="notes">${s.preparation_notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
+            <div class="d-actions">
+              ${suggested ? `<button class="btn" type="button" id="again">Suggest another</button>` : ""}
+              <button class="btn ghost" type="button" id="dc">Close</button>
+            </div>
+          </div>`;
+        hydrate($("dBody"));
+        const d = $("dlg");
+        if (!d.open) d.showModal();
+        $("dx").onclick = $("dc").onclick = () => d.close();
+        if ($("again")) $("again").onclick = suggest;
+      }
+
+      function suggest(){
+        const options = salads.length > 1 ? salads.filter(s => s.id !== last) : salads;
+        const s = options[Math.floor(Math.random() * options.length)];
+        last = s.id;
+        openSalad(s, true);
+      }
+
+      $("grid").addEventListener("click", e => {
+        const c = e.target.closest(".card"); if (!c) return;
+        openSalad(salads.find(s => String(s.id) === c.dataset.id), false);
+      });
+      $("suggest").onclick = suggest;
+      $("dlg").addEventListener("click", e => { if (e.target === $("dlg")) $("dlg").close(); });
+
+      renderGrid();
+    </script>
+  </body>
+
+</html>
