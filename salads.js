@@ -14,7 +14,7 @@ const SALADS = [
       { ref: "tuna_drained", quantity: 80 },
       { ref: "chickpeas_dry", quantity: 15 },
       { ref: "olive_slices", quantity: 10 },
-      { ref: "grilled_toast", quantity: 15 },
+      { ref: "grilled_toast", quantity: 25 },
       { ref: "yogurt_dressing", quantity: 1 }
     ]
   },
@@ -173,7 +173,7 @@ const SALADS = [
       { ref: "tomato", quantity: 100 },
       { ref: "cucumber", quantity: 100 },
       { ref: "onion", quantity: 20 },
-      { ref: "grilled_toast", quantity: 20 },
+      { ref: "grilled_toast", quantity: 25 },
       { ref: "olive_slices", quantity: 10 }
     ]
   },
@@ -188,7 +188,7 @@ const SALADS = [
       { ref: "lettuce", quantity: 100 },
       { ref: "chicken_raw", quantity: 120 },
       { ref: "egg", quantity: 1 },
-      { ref: "grilled_toast", quantity: 20 },
+      { ref: "grilled_toast", quantity: 25 },
       { ref: "yogurt_dressing", quantity: 1 }
     ]
   }
