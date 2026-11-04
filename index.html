@@ -206,6 +206,10 @@
         .adj .kc{grid-column:1 / -1;text-align:left}
         .d-body{padding:18px 16px 22px}
       }
+      /* Hide scrollbars in the popup (scrolling still works) */
+      .d-scroll,.d-body{scrollbar-width:none;-ms-overflow-style:none}
+      .d-scroll::-webkit-scrollbar,.d-body::-webkit-scrollbar{display:none}
+
       /* Large screens: image on the left, content on the right */
       @media (min-width:860px){
         dialog{width:min(1000px,calc(100vw - 48px));height:min(86vh,720px);max-height:none}
@@ -338,7 +342,7 @@
       const r0 = v => Math.round(v || 0);
       const r1 = v => (Math.round((v || 0) * 10) / 10).toString();
       const unitLabel = (u, q) => u === "egg" ? (q === 1 ? "egg" : "eggs") : u;
-      const stepFor = u => (u === "g" ? 5 : u === "portion" ? 0.5 : 1);
+      const stepFor = u => (u === "g" ? 5 : u === "item" ? 0.5 : 1);
       const clean = v => Math.round(v * 100) / 100;
 
       function openSalad(s, suggested){
@@ -397,10 +401,7 @@
             </ul>
 
             ${(s.preparation_notes||[]).length ? `<h4>Preparation</h4><ul class="notes">${s.preparation_notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
-            <div class="d-actions">
-              ${suggested ? `<button class="btn" type="button" id="again">Suggest another</button>` : ""}
-              <button class="btn ghost" type="button" id="dc">Close</button>
-            </div>
+            ${suggested ? `<div class="d-actions"><button class="btn" type="button" id="again">Suggest another</button></div>` : ""}
           </div>`;
 
         hydrate($("dBody"));
@@ -455,7 +456,7 @@
 
         const d = $("dlg");
         if (!d.open) d.showModal();
-        $("dx").onclick = $("dc").onclick = () => d.close();
+        $("dx").onclick = () => d.close();
         if ($("again")) $("again").onclick = suggest;
       }
 

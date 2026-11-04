@@ -10,7 +10,6 @@ const SALADS = [
       { ref: "lettuce", quantity: 50 },
       { ref: "tomato", quantity: 100 },
       { ref: "cucumber", quantity: 100 },
-      { ref: "onion", quantity: 20 },
       { ref: "tuna_drained", quantity: 80 },
       { ref: "chickpeas_dry", quantity: 15 },
       { ref: "olive_slices", quantity: 10 },
@@ -29,7 +28,6 @@ const SALADS = [
       { ref: "lettuce", quantity: 50 },
       { ref: "tomato", quantity: 100 },
       { ref: "cucumber", quantity: 100 },
-      { ref: "onion", quantity: 20 },
       { ref: "chicken_breast", quantity: 120 },
       { ref: "chickpeas_dry", quantity: 15 },
       { ref: "olive_slices", quantity: 10 },
@@ -47,7 +45,6 @@ const SALADS = [
       { ref: "lettuce", quantity: 50 },
       { ref: "tomato", quantity: 100 },
       { ref: "cucumber", quantity: 100 },
-      { ref: "onion", quantity: 20 },
       { ref: "tuna_drained", quantity: 100 },
       { ref: "egg", quantity: 2 },
       { ref: "olive_slices", quantity: 10 },
@@ -65,7 +62,6 @@ const SALADS = [
       { ref: "lettuce", quantity: 50 },
       { ref: "tomato", quantity: 100 },
       { ref: "cucumber", quantity: 100 },
-      { ref: "onion", quantity: 20 },
       { ref: "chickpeas_dry", quantity: 40 },
       { ref: "egg", quantity: 2 },
       { ref: "olive_slices", quantity: 10 },
@@ -84,7 +80,6 @@ const SALADS = [
       { ref: "chicken_breast", quantity: 100 },
       { ref: "tomato", quantity: 80 },
       { ref: "cucumber", quantity: 80 },
-      { ref: "onion", quantity: 15 },
       { ref: "olive_slices", quantity: 10 },
       { ref: "yogurt_dressing", quantity: 1 }
     ]
@@ -101,7 +96,6 @@ const SALADS = [
       { ref: "tuna_drained", quantity: 100 },
       { ref: "tomato", quantity: 80 },
       { ref: "cucumber", quantity: 80 },
-      { ref: "onion", quantity: 15 },
       { ref: "olive_slices", quantity: 10 },
       { ref: "yogurt_dressing", quantity: 1 }
     ]
@@ -120,7 +114,6 @@ const SALADS = [
       { ref: "egg", quantity: 1 },
       { ref: "tomato", quantity: 60 },
       { ref: "cucumber", quantity: 60 },
-      { ref: "onion", quantity: 10 },
       { ref: "yogurt_dressing", quantity: 1 }
     ]
   },
@@ -137,7 +130,6 @@ const SALADS = [
       { ref: "chickpeas_dry", quantity: 15 },
       { ref: "tomato", quantity: 80 },
       { ref: "cucumber", quantity: 80 },
-      { ref: "onion", quantity: 15 },
       { ref: "olive_slices", quantity: 10 },
       { ref: "yogurt_dressing", quantity: 1 }
     ]
@@ -153,7 +145,6 @@ const SALADS = [
       { ref: "lettuce", quantity: 80 },
       { ref: "tomato", quantity: 100 },
       { ref: "cucumber", quantity: 100 },
-      { ref: "onion", quantity: 20 },
       { ref: "grilled_toast", quantity: 25 },
       { ref: "egg", quantity: 1 },
       { ref: "yogurt_dressing", quantity: 1 }
@@ -172,7 +163,6 @@ const SALADS = [
       { ref: "chickpeas_dry", quantity: 20 },
       { ref: "tomato", quantity: 100 },
       { ref: "cucumber", quantity: 100 },
-      { ref: "onion", quantity: 20 },
       { ref: "grilled_toast", quantity: 25 },
       { ref: "olive_slices", quantity: 10 }
     ]
