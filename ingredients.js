@@ -44,6 +44,23 @@ const INGREDIENTS = {
   yogurt_dressing: {
     name: "Yogurt dressing",
     per: 1, unit: "portion",
-    kcal: 60
-  }
+    kcal: 60, protein: 3.6, carbs: 0, fat: 2.6,
+  },
+  chicken_breast: {
+    name: "Chicken breast",
+    per: 100, unit: "g",
+    kcal: 120, protein: 22.5, carbs: 0, fat: 2.6,
+    weighing: "raw"
+  },
+  egg: {
+    name: "Eggs",
+    per: 1, unit: "egg",
+    kcal: 72, protein: 6.3, carbs: 0.4, fat: 4.8
+  },
+  wheat_pasta_dry: {
+    name: "Pasta",
+    per: 100, unit: "g",
+    kcal: 336, protein: 11.5, carbs: 65.8, fat: 1.8,
+    weighing: "dry"
+  },
 };

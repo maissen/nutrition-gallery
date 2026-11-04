@@ -30,7 +30,7 @@ const SALADS = [
       { ref: "tomato", quantity: 100 },
       { ref: "cucumber", quantity: 100 },
       { ref: "onion", quantity: 20 },
-      { ref: "chicken_raw", quantity: 120 },
+      { ref: "chicken_breast", quantity: 120 },
       { ref: "chickpeas_dry", quantity: 15 },
       { ref: "olive_slices", quantity: 10 },
       { ref: "yogurt_dressing", quantity: 1 }
@@ -81,7 +81,7 @@ const SALADS = [
     thumbnail_source_url: "https://www.rohlik.cz/chef/24237-testovinovy-salat-s-kurecim-masem",
     ingredients: [
       { ref: "wheat_pasta_dry", quantity: 45 },
-      { ref: "chicken_raw", quantity: 100 },
+      { ref: "chicken_breast", quantity: 100 },
       { ref: "tomato", quantity: 80 },
       { ref: "cucumber", quantity: 80 },
       { ref: "onion", quantity: 15 },
@@ -115,7 +115,7 @@ const SALADS = [
     thumbnail_source_url: "https://mrcuisto.com/recipes/salade-pates-fondante-poulet",
     ingredients: [
       { ref: "wheat_pasta_dry", quantity: 30 },
-      { ref: "chicken_raw", quantity: 70 },
+      { ref: "chicken_breast", quantity: 70 },
       { ref: "chickpeas_dry", quantity: 15 },
       { ref: "egg", quantity: 1 },
       { ref: "tomato", quantity: 60 },
@@ -186,7 +186,7 @@ const SALADS = [
     thumbnail_source_url: "https://www.famousdaves.ae/product/classic-chicken-caesar-salad",
     ingredients: [
       { ref: "lettuce", quantity: 100 },
-      { ref: "chicken_raw", quantity: 120 },
+      { ref: "chicken_breast", quantity: 120 },
       { ref: "egg", quantity: 1 },
       { ref: "grilled_toast", quantity: 25 },
       { ref: "yogurt_dressing", quantity: 1 }
