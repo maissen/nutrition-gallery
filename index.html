@@ -169,6 +169,7 @@
         color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;
       }
       .link:hover{color:var(--ink)}
+      .link:disabled{opacity:.4;cursor:default;text-decoration:none;color:var(--muted)}
       .link[hidden]{display:none}
 
       .adj{list-style:none;margin:0;padding:0}
@@ -382,7 +383,7 @@
 
             <div class="sec-head">
               <h4>Ingredients</h4>
-              <button class="link" type="button" id="reset" hidden>Reset</button>
+              <button class="link" type="button" id="reset" disabled>Reset</button>
             </div>
             <ul class="adj">${init.rows.map((r, idx) => `
               <li>
@@ -430,7 +431,7 @@
           $("tDelta").hidden = !changed || diff === 0;
           $("tDelta").textContent = `${diff > 0 ? "+" : ""}${diff}`;
           $("tDelta").dataset.dir = diff > 0 ? "up" : "down";
-          $("reset").hidden = !changed;
+          $("reset").disabled = !changed;
         }
 
         const list = $("dBody").querySelector(".adj");
