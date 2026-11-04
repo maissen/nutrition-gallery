@@ -8,80 +8,210 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="icon.png">
-    
+
     <style>
       :root{
-        --bg:#f5f8f4; --card:#ffffff; --ink:#15231a; --muted:#5d6e63; --line:#dce5dd;
-        --leaf:#2d6a4f; --leaf-ink:#ffffff; --lime:#cfe66a; --lime-ink:#1c2a0a; --shadow:0 1px 2px rgba(21,35,26,.06),0 8px 24px rgba(21,35,26,.06);
-        --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
-        --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+        --bg:#f6f7f2;
+        --surface:#ffffff;
+        --ink:#1c2a22;
+        --muted:#5f6d64;
+        --line:rgba(28,42,34,.12);
+        --accent:#2f7d4f;
+        --accent-ink:#ffffff;
+        --protein:#4f9d69;
+        --carbs:#e0a030;
+        --fat:#d2694a;
+        --up:#d2694a;
+        --down:#4f9d69;
+        --shadow:0 1px 2px rgba(28,42,34,.06),0 8px 24px rgba(28,42,34,.07);
+        color-scheme:light;
       }
       @media (prefers-color-scheme:dark){
-        :root:not([data-theme="light"]){--bg:#0f1713;--card:#17231c;--ink:#e8f0ea;--muted:#9bb0a2;--line:#27382d;--leaf:#7fcf9f;--leaf-ink:#0c1a12;--lime:#cfe66a;--lime-ink:#1c2a0a;--shadow:none}
+        :root{
+          --bg:#121a15;
+          --surface:#1b261f;
+          --ink:#eaf1ec;
+          --muted:#9baba1;
+          --line:rgba(234,241,236,.14);
+          --accent:#5cc183;
+          --accent-ink:#0f1a13;
+          --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+          color-scheme:dark;
+        }
       }
+
       *{box-sizing:border-box}
       html{-webkit-text-size-adjust:100%}
-      body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.5 var(--body);padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
-      .wrap{max-width:1120px;margin:0 auto;padding:clamp(20px,5vw,56px) clamp(16px,4vw,32px)}
-      h1{font:700 clamp(2.4rem,8vw,4.5rem)/1 var(--display);letter-spacing:-.03em;margin:0 0 .4rem}
-      .sub{color:var(--muted);margin:0 0 1.5rem;max-width:46ch}
+      body{
+        margin:0;background:var(--bg);color:var(--ink);
+        font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+        font-size:16px;line-height:1.5;
+      }
+      button{font:inherit;color:inherit}
+      :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-      .btn{font:700 1rem var(--body);border:0;border-radius:14px;padding:13px 22px;cursor:pointer;background:var(--lime);color:var(--lime-ink);transition:transform .1s}
-      .btn:active{transform:scale(.98)}
-      .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:500;padding:12px 18px}
-      .hero-actions{margin:0 0 2.5rem}
+      .wrap{max-width:1080px;margin:0 auto;padding:48px 20px 72px}
+      h1{
+        font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;
+        font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.05;margin:0 0 8px;letter-spacing:-.02em;
+      }
+      .sub{margin:0 0 22px;color:var(--muted);max-width:52ch}
 
-      .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:20px}
-      .card{all:unset;box-sizing:border-box;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:var(--shadow);transition:border-color .15s}
-      .card:hover{border-color:var(--leaf)}
-      .thumb{aspect-ratio:4/3;background:linear-gradient(135deg,#dff0d2,#b9dcc4);position:relative;overflow:hidden}
-      .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-      .thumb .ph{position:absolute;inset:0;display:grid;place-items:center;font:700 4rem var(--display);color:rgba(45,106,79,.35)}
-      .thumb.loaded .ph{display:none}
-      .score{position:absolute;top:12px;right:12px;background:var(--lime);color:var(--lime-ink);font:700 .85rem var(--body);padding:5px 10px;border-radius:999px}
-      .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}
-      .cat{color:var(--muted);font-size:.85rem}
-      .name{font:500 1.2rem/1.25 var(--display);letter-spacing:-.01em}
-      .meta{color:var(--muted);font-size:.9rem;margin-top:4px}
-      .ings{color:var(--muted);font-size:.9rem;line-height:1.45;margin-top:6px;padding-top:10px;border-top:1px solid var(--line)}
-      .card:focus-visible,.btn:focus-visible,.x:focus-visible{outline:3px solid var(--leaf);outline-offset:2px}
+      .hero-actions{margin-bottom:32px}
+      .btn{
+        display:inline-flex;align-items:center;justify-content:center;
+        padding:11px 20px;border:0;border-radius:999px;cursor:pointer;
+        background:var(--accent);color:var(--accent-ink);font-weight:700;
+        transition:transform .15s,filter .15s;
+      }
+      .btn:hover{filter:brightness(1.08)}
+      .btn:active{transform:scale(.97)}
+      .btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+      .btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
 
-      dialog{border:0;border-radius:24px;padding:0;width:min(560px,calc(100% - 24px));max-height:calc(100dvh - 24px);background:var(--card);color:var(--ink);box-shadow:0 24px 80px rgba(0,0,0,.35);overflow:hidden}
-      dialog::backdrop{background:rgba(10,20,14,.55)}
-      dialog[open]{animation:pop .2s ease-out}
-      @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}}
-      .d-scroll{overflow-y:auto;max-height:calc(100dvh - 24px)}
-      .d-body{padding:22px clamp(18px,4vw,28px) 26px}
-      .d-body h3{font:700 1.7rem/1.15 var(--display);letter-spacing:-.02em;margin:4px 0 8px}
-      .x{position:absolute;top:12px;left:12px;z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.9);color:#15231a;font-size:1.3rem;cursor:pointer}
-      .facts{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
-      .fact{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.88rem;color:var(--muted)}
-      .ing{list-style:none;margin:0;padding:0}
-      .ing li{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line)}
-      .ing li:last-child{border-bottom:0}
-      .ing .amt{color:var(--muted);text-align:right;font-size:.92rem}
-      .d-body h4{font:500 1rem var(--display);margin:22px 0 6px}
-      .notes{margin:0;padding-left:1.1rem;color:var(--muted)}
-      .d-actions{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap}
-      .tag{display:inline-block;background:var(--lime);color:var(--lime-ink);font:700 .8rem var(--body);padding:4px 10px;border-radius:999px;margin-bottom:6px}
+      /* Grid */
+      .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+      .card{
+        display:flex;flex-direction:column;text-align:left;padding:0;cursor:pointer;
+        background:var(--surface);border:0;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);
+        transition:transform .18s ease,box-shadow .18s ease;
+      }
+      .card:hover{transform:translateY(-3px)}
 
-      /* Dialog thumbnail: stacked on small screens, side-by-side on large */
-      .d-thumb{aspect-ratio:16/9}
-      @media (min-width:900px){
-        dialog{width:min(980px,calc(100% - 48px))}
-        .d-scroll{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
-        .d-thumb{aspect-ratio:auto;min-height:100%}
-        .d-thumb img{position:absolute;inset:0}
+      .thumb{position:relative;aspect-ratio:4/3;background:color-mix(in srgb,var(--accent) 14%,var(--surface));overflow:hidden}
+      .thumb .ph{
+        position:absolute;inset:0;display:grid;place-items:center;
+        font:700 3.5rem "Bricolage Grotesque",system-ui,sans-serif;color:var(--accent);opacity:.5;
+      }
+      .thumb img{
+        position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+        opacity:0;transition:opacity .35s ease;
+      }
+      .thumb.loaded img{opacity:1}
+      .score{
+        position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:999px;
+        background:rgba(0,0,0,.62);color:#fff;font-size:.8rem;font-weight:700;
+        backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
       }
 
-      @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-      @media (max-width:520px){.hero-actions .btn{width:100%}}
+      .body{display:flex;flex-direction:column;gap:4px;padding:14px 16px 18px}
+      .cat{font-size:.8rem;color:var(--accent);font-weight:700}
+      .name{font:700 1.15rem/1.25 "Bricolage Grotesque",system-ui,sans-serif}
+      .meta{font-size:.88rem;color:var(--muted)}
+      .ings{
+        font-size:.82rem;color:var(--muted);margin-top:4px;
+        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+      }
+
+      /* Dialog */
+      dialog{
+        width:min(560px,calc(100vw - 24px));max-height:min(88vh,860px);padding:0;border:0;
+        border-radius:22px;background:var(--surface);color:var(--ink);box-shadow:0 24px 80px rgba(0,0,0,.35);
+        overflow:hidden;
+      }
+      dialog[open]{animation:pop .22s ease}
+      dialog::backdrop{background:rgba(10,18,13,.55);backdrop-filter:blur(3px)}
+      @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+      .d-scroll{max-height:min(88vh,860px);overflow-y:auto;position:relative;overscroll-behavior:contain}
+      .x{
+        position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border:0;border-radius:50%;
+        background:rgba(0,0,0,.55);color:#fff;font-size:1.4rem;line-height:1;cursor:pointer;
+        backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+      }
+      .x:hover{background:rgba(0,0,0,.75)}
+      .d-thumb{aspect-ratio:16/9}
+      .d-body{padding:20px 22px 24px}
+      .tag{
+        display:inline-block;margin-bottom:8px;padding:3px 10px;border-radius:999px;
+        background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);font-size:.8rem;font-weight:700;
+      }
+      .d-body h3{font:700 1.6rem/1.15 "Bricolage Grotesque",system-ui,sans-serif;margin:2px 0 10px;letter-spacing:-.01em}
+      .d-body h4{font:700 1rem "Bricolage Grotesque",system-ui,sans-serif;margin:18px 0 6px}
+      .facts{display:flex;flex-wrap:wrap;gap:8px}
+      .fact{padding:3px 12px;border-radius:999px;font-size:.85rem;background:color-mix(in srgb,var(--ink) 7%,transparent)}
+      .notes{margin:0;padding-left:18px;color:var(--muted)}
+      .notes li{margin:4px 0}
+      .d-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+
+      /* Nutrition summary */
+      .macros{margin:16px 0 6px}
+      .m-main{display:flex;align-items:baseline;gap:6px}
+      .m-kcal{font:700 2.4rem/1 "Bricolage Grotesque",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+      .m-unit{color:var(--muted);font-size:.95rem}
+      .m-delta{
+        margin-left:6px;padding:2px 9px;border-radius:999px;font-size:.78rem;font-weight:700;
+        background:color-mix(in srgb,var(--ink) 8%,transparent);font-variant-numeric:tabular-nums;
+      }
+      .m-delta[hidden]{display:none}
+      .m-delta[data-dir="up"]{color:var(--up)}
+      .m-delta[data-dir="down"]{color:var(--down)}
+
+      .mbar{
+        display:flex;height:8px;border-radius:999px;overflow:hidden;margin:12px 0 8px;
+        background:color-mix(in srgb,var(--ink) 8%,transparent);
+      }
+      .mbar span{display:block;height:100%;transition:width .25s ease}
+      .mbar .p,.m-legend .p{background:var(--protein)}
+      .mbar .c,.m-legend .c{background:var(--carbs)}
+      .mbar .f,.m-legend .f{background:var(--fat)}
+      .m-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.85rem;color:var(--muted)}
+      .m-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+      .m-legend b{color:var(--ink);font-variant-numeric:tabular-nums}
+
+      /* Ingredient adjusters */
+      .sec-head{display:flex;align-items:center;justify-content:space-between;margin:20px 0 4px}
+      .sec-head h4{margin:0}
+      .link{
+        background:none;border:0;padding:4px 2px;font-size:.85rem;font-weight:700;
+        color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;
+      }
+      .link:hover{color:var(--ink)}
+      .link[hidden]{display:none}
+
+      .adj{list-style:none;margin:0;padding:0}
+      .adj li{
+        display:grid;grid-template-columns:1fr auto 64px;align-items:center;gap:10px;
+        padding:9px 0;border-bottom:1px solid var(--line);
+      }
+      .adj li:last-child{border-bottom:0}
+      .adj .n{font-weight:500}
+      .adj .w{display:block;font-size:.75rem;color:var(--muted)}
+      .adj .kc{text-align:right;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+      .stepper{
+        display:flex;align-items:center;gap:2px;padding:3px;border-radius:999px;
+        background:color-mix(in srgb,var(--ink) 7%,transparent);
+      }
+      .stepper button{
+        width:28px;height:28px;border:0;border-radius:50%;background:transparent;
+        font-size:1.1rem;line-height:1;cursor:pointer;transition:background .15s,transform .1s;
+      }
+      .stepper button:hover{background:color-mix(in srgb,var(--ink) 12%,transparent)}
+      .stepper button:active{transform:scale(.92)}
+      .stepper input{
+        width:46px;border:0;background:transparent;color:inherit;font:inherit;font-weight:700;
+        text-align:right;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield;
+      }
+      .stepper input:focus,.stepper input:focus-visible{outline:none}
+      .stepper:focus-within{box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 55%,transparent)}
+      .stepper input::-webkit-outer-spin-button,
+      .stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+      .stepper .u{min-width:34px;padding-right:2px;font-size:.78rem;color:var(--muted)}
+
+      @media (max-width:420px){
+        .adj li{grid-template-columns:1fr auto;row-gap:2px}
+        .adj .kc{grid-column:1 / -1;text-align:left}
+        .d-body{padding:18px 16px 22px}
+      }
+      @media (prefers-reduced-motion:reduce){
+        *,*::before,*::after{animation:none!important;transition:none!important}
+      }
     </style>
   </head>
-  
+
   <body>
     <main class="wrap">
       <h1>Salads</h1>
@@ -96,40 +226,33 @@
 
     <script src="ingredients.js"></script>
     <script src="salads.js"></script>
-
     <script>
       const NUTRIENTS = ["kcal", "protein", "carbs", "fat"];
 
-      // Normalize the data file's field names to what the UI reads.
-      const salads = SALADS.map(s => {
-        const totals = {};
-        const ingredients = (s.ingredients || []).map(i => {
+      // Compute per-ingredient and total nutrition for a salad at the given quantities.
+      function calc(s, qty) {
+        const totals = { kcal: 0, protein: 0, carbs: 0, fat: 0 };
+        const rows = s.ingredients.map((i, idx) => {
           const db = INGREDIENTS[i.ref];
-          if (!db) { console.warn(`Unknown ingredient "${i.ref}" in salad "${s.name}"`); return { ...i, name: i.ref, calories: null }; }
-          const factor = i.quantity / db.per;
-          const n = {};
+          const q = qty[idx];
+          if (!db) {
+            console.warn(`Unknown ingredient "${i.ref}" in salad "${s.name}"`);
+            return { name: i.ref, unit: "", quantity: q, n: {} };
+          }
+          const f = q / db.per, n = {};
           NUTRIENTS.forEach(k => {
-            if (db[k] != null) { n[k] = db[k] * factor; totals[k] = (totals[k] || 0) + n[k]; }
+            if (db[k] != null) { n[k] = db[k] * f; totals[k] += n[k]; }
           });
-          return {
-            ...i,
-            name: db.name,
-            unit: db.unit,
-            weighing: db.weighing,
-            calories: Math.round(n.kcal)
-          };
+          return { name: db.name, unit: db.unit, weighing: db.weighing, per: db.per, quantity: q, n };
         });
-        const r = v => (v == null ? null : Math.round(v));
-        return {
-          ...s,
-          score: s.score_out_of_10,
-          servings: s.servings ?? 1,
-          ingredients,
-          calories: r(totals.kcal),
-          protein: r(totals.protein),
-          carbs: r(totals.carbs),
-          fat: r(totals.fat)
-        };
+        return { rows, totals };
+      }
+
+      const salads = SALADS.map(s => {
+        const ingredients = (s.ingredients || []).map(i => ({ ...i, name: INGREDIENTS[i.ref]?.name ?? i.ref }));
+        const base = { ...s, ingredients, score: s.score_out_of_10, servings: s.servings ?? 1 };
+        const { totals } = calc(base, ingredients.map(i => i.quantity));
+        return { ...base, calories: Math.round(totals.kcal) };
       });
 
       const $ = id => document.getElementById(id);
@@ -181,14 +304,6 @@
         });
       }
 
-      function amount(i){
-        const parts = [];
-        if (i.quantity != null) parts.push(`${i.quantity}${i.unit && i.unit.length <= 2 ? "" : " "}${i.unit || ""}`.trim());
-        if (i.weighing) parts.push(i.weighing);
-        if (i.calories != null) parts.push(`${i.calories} kcal`);
-        return parts.join(" · ");
-      }
-
       function renderGrid(){
         $("grid").innerHTML = salads.map(s => `
           <button class="card" data-id="${esc(s.id)}" type="button">
@@ -208,7 +323,18 @@
         $("sub").textContent = `${salads.length} salads. Not sure what to eat? Let me choose one.`;
       }
 
+      const r0 = v => Math.round(v || 0);
+      const r1 = v => (Math.round((v || 0) * 10) / 10).toString();
+      const unitLabel = (u, q) => u === "egg" ? (q === 1 ? "egg" : "eggs") : u;
+      const stepFor = u => (u === "g" ? 5 : u === "portion" ? 0.5 : 1);
+      const clean = v => Math.round(v * 100) / 100;
+
       function openSalad(s, suggested){
+        const base = s.ingredients.map(i => i.quantity);
+        const qty = [...base];
+        const baseKcal = calc(s, base).totals.kcal;
+        const init = calc(s, qty);
+
         $("dBody").innerHTML = `
           <button class="x" type="button" aria-label="Close" id="dx">×</button>
           <div class="thumb d-thumb">
@@ -221,21 +347,100 @@
             <h3 id="dTitle">${esc(s.name)}</h3>
             <div class="facts">
               ${s.score != null ? `<span class="fact">★ ${esc(s.score)}</span>` : ""}
-              <span class="fact">${esc(s.calories)} kcal</span>
               <span class="fact">${esc(s.servings)} serving${s.servings == 1 ? "" : "s"}</span>
-              ${s.protein != null ? `<span class="fact">${esc(s.protein)} g protein</span>` : ""}
-              ${s.carbs != null ? `<span class="fact">${esc(s.carbs)} g carbs</span>` : ""}
-              ${s.fat != null ? `<span class="fact">${esc(s.fat)} g fat</span>` : ""}
             </div>
-            <ul class="ing">${(s.ingredients||[]).map(i =>
-              `<li><span class="n">${esc(i.name)}</span><span class="amt">${esc(amount(i))}</span></li>`).join("")}</ul>
+
+            <div class="macros">
+              <div class="m-main">
+                <span class="m-kcal" id="tKcal">${r0(init.totals.kcal)}</span>
+                <span class="m-unit">kcal</span>
+                <span class="m-delta" id="tDelta" hidden></span>
+              </div>
+              <div class="mbar" aria-hidden="true"><span class="p"></span><span class="c"></span><span class="f"></span></div>
+              <div class="m-legend">
+                <span><i class="p"></i><b id="tP"></b> g protein</span>
+                <span><i class="c"></i><b id="tC"></b> g carbs</span>
+                <span><i class="f"></i><b id="tF"></b> g fat</span>
+              </div>
+            </div>
+
+            <div class="sec-head">
+              <h4>Ingredients</h4>
+              <button class="link" type="button" id="reset" hidden>Reset</button>
+            </div>
+            <ul class="adj">${init.rows.map((r, idx) => `
+              <li>
+                <div class="who">
+                  <span class="n">${esc(r.name)}</span>
+                  ${r.weighing ? `<span class="w">${esc(r.weighing)}</span>` : ""}
+                </div>
+                <div class="stepper">
+                  <button type="button" data-i="${idx}" data-d="-1" aria-label="Decrease ${esc(r.name)}">−</button>
+                  <input type="number" inputmode="decimal" min="0" step="${stepFor(r.unit)}" value="${r.quantity}" data-i="${idx}" aria-label="${esc(r.name)} quantity">
+                  <span class="u" id="u${idx}">${esc(unitLabel(r.unit, r.quantity))}</span>
+                  <button type="button" data-i="${idx}" data-d="1" aria-label="Increase ${esc(r.name)}">+</button>
+                </div>
+                <span class="kc" id="k${idx}">${r0(r.n.kcal)} kcal</span>
+              </li>`).join("")}
+            </ul>
+
             ${(s.preparation_notes||[]).length ? `<h4>Preparation</h4><ul class="notes">${s.preparation_notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
             <div class="d-actions">
               ${suggested ? `<button class="btn" type="button" id="again">Suggest another</button>` : ""}
               <button class="btn ghost" type="button" id="dc">Close</button>
             </div>
           </div>`;
+
         hydrate($("dBody"));
+
+        function update(){
+          const { rows, totals } = calc(s, qty);
+          $("tKcal").textContent = r0(totals.kcal);
+          $("tP").textContent = r1(totals.protein);
+          $("tC").textContent = r1(totals.carbs);
+          $("tF").textContent = r1(totals.fat);
+
+          // macro bar: share of calories from each macro (4/4/9 kcal per g)
+          const p = totals.protein * 4, c = totals.carbs * 4, f = totals.fat * 9, sum = p + c + f || 1;
+          const bar = $("dBody").querySelector(".mbar");
+          bar.querySelector(".p").style.width = (p / sum * 100) + "%";
+          bar.querySelector(".c").style.width = (c / sum * 100) + "%";
+          bar.querySelector(".f").style.width = (f / sum * 100) + "%";
+
+          rows.forEach((r, idx) => {
+            $("k" + idx).textContent = `${r0(r.n.kcal)} kcal`;
+            $("u" + idx).textContent = unitLabel(r.unit, qty[idx]);
+          });
+
+          const diff = r0(totals.kcal) - r0(baseKcal);
+          const changed = qty.some((q, i) => q !== base[i]);
+          $("tDelta").hidden = !changed || diff === 0;
+          $("tDelta").textContent = `${diff > 0 ? "+" : ""}${diff}`;
+          $("tDelta").dataset.dir = diff > 0 ? "up" : "down";
+          $("reset").hidden = !changed;
+        }
+
+        const list = $("dBody").querySelector(".adj");
+        list.addEventListener("click", e => {
+          const b = e.target.closest("button[data-d]"); if (!b) return;
+          const i = +b.dataset.i, step = stepFor(INGREDIENTS[s.ingredients[i].ref]?.unit);
+          qty[i] = Math.max(0, clean(qty[i] + step * +b.dataset.d));
+          list.querySelector(`input[data-i="${i}"]`).value = qty[i];
+          update();
+        });
+        list.addEventListener("input", e => {
+          const inp = e.target.closest("input[data-i]"); if (!inp) return;
+          const v = parseFloat(inp.value);
+          qty[+inp.dataset.i] = Number.isFinite(v) && v > 0 ? v : 0;
+          update();
+        });
+        $("reset").onclick = () => {
+          base.forEach((q, i) => { qty[i] = q; list.querySelector(`input[data-i="${i}"]`).value = q; });
+          update();
+        };
+
+        update();
+
         const d = $("dlg");
         if (!d.open) d.showModal();
         $("dx").onclick = $("dc").onclick = () => d.close();
