@@ -94,16 +94,43 @@
 
     <dialog id="dlg" aria-labelledby="dTitle"><div class="d-scroll" id="dBody"></div></dialog>
 
+    <script src="ingredients.js"></script>
     <script src="salads.js"></script>
+
     <script>
+      const NUTRIENTS = ["kcal", "protein", "carbs", "fat"];
+
       // Normalize the data file's field names to what the UI reads.
-      const salads = SALADS.map(s => ({
-        ...s,
-        score: s.score ?? s.score_out_of_10,
-        calories: s.calories ?? s.estimated_calories_kcal,
-        servings: s.servings ?? 1,
-        ingredients: (s.ingredients || []).map(i => ({ ...i, calories: i.calories ?? i.calories_kcal }))
-      }));
+      const salads = SALADS.map(s => {
+        const totals = {};
+        const ingredients = (s.ingredients || []).map(i => {
+          const db = INGREDIENTS[i.ref];
+          if (!db) { console.warn(`Unknown ingredient "${i.ref}" in salad "${s.name}"`); return { ...i, name: i.ref, calories: null }; }
+          const factor = i.quantity / db.per;
+          const n = {};
+          NUTRIENTS.forEach(k => {
+            if (db[k] != null) { n[k] = db[k] * factor; totals[k] = (totals[k] || 0) + n[k]; }
+          });
+          return {
+            ...i,
+            name: db.name,
+            unit: db.unit,
+            weighing: db.weighing,
+            calories: Math.round(n.kcal)
+          };
+        });
+        const r = v => (v == null ? null : Math.round(v));
+        return {
+          ...s,
+          score: s.score_out_of_10,
+          servings: s.servings ?? 1,
+          ingredients,
+          calories: r(totals.kcal),
+          protein: r(totals.protein),
+          carbs: r(totals.carbs),
+          fat: r(totals.fat)
+        };
+      });
 
       const $ = id => document.getElementById(id);
       const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -196,6 +223,9 @@
               ${s.score != null ? `<span class="fact">★ ${esc(s.score)}</span>` : ""}
               <span class="fact">${esc(s.calories)} kcal</span>
               <span class="fact">${esc(s.servings)} serving${s.servings == 1 ? "" : "s"}</span>
+              ${s.protein != null ? `<span class="fact">${esc(s.protein)} g protein</span>` : ""}
+              ${s.carbs != null ? `<span class="fact">${esc(s.carbs)} g carbs</span>` : ""}
+              ${s.fat != null ? `<span class="fact">${esc(s.fat)} g fat</span>` : ""}
             </div>
             <ul class="ing">${(s.ingredients||[]).map(i =>
               `<li><span class="n">${esc(i.name)}</span><span class="amt">${esc(amount(i))}</span></li>`).join("")}</ul>
