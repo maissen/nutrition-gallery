@@ -43,7 +43,7 @@ const INGREDIENTS = {
   },
   yogurt_dressing: {
     name: "Yogurt dressing",
-    per: 1, unit: "portion",
+    per: 1, unit: "item",
     kcal: 60, protein: 3.6, carbs: 0, fat: 2.6,
   },
   chicken_breast: {
