@@ -206,6 +206,18 @@
         .adj .kc{grid-column:1 / -1;text-align:left}
         .d-body{padding:18px 16px 22px}
       }
+      /* Large screens: image on the left, content on the right */
+      @media (min-width:860px){
+        dialog{width:min(1000px,calc(100vw - 48px));height:min(86vh,720px);max-height:none}
+        .d-scroll{
+          display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+          height:100%;max-height:none;overflow:hidden;
+        }
+        .d-thumb{aspect-ratio:auto;height:100%}
+        .d-body{overflow-y:auto;overscroll-behavior:contain;padding:30px 32px 28px}
+        .x{background:color-mix(in srgb,var(--ink) 10%,transparent);color:var(--ink);backdrop-filter:none;-webkit-backdrop-filter:none}
+        .x:hover{background:color-mix(in srgb,var(--ink) 18%,transparent)}
+      }
       @media (prefers-reduced-motion:reduce){
         *,*::before,*::after{animation:none!important;transition:none!important}
       }
