@@ -166,10 +166,10 @@
       .sec-head h4{margin:0}
       .link{
         background:none;border:0;padding:4px 2px;font-size:.85rem;font-weight:700;
-        color:var(--muted);cursor:pointer;
+        color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;
       }
       .link:hover{color:var(--ink)}
-      .link:disabled{opacity:.4;cursor:default;color:var(--muted)}
+      .link:disabled{opacity:.4;cursor:default;text-decoration:none;color:var(--muted)}
       .link[hidden]{display:none}
 
       .adj{list-style:none;margin:0;padding:0}
@@ -283,6 +283,7 @@
       const $ = id => document.getElementById(id);
       const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
       let last = null;
+      const seen = new Set(); // ids already suggested in the current cycle
 
       // Image cache: blobs are stored in IndexedDB so images load once, then work from local storage.
       // If the image host blocks cross-origin reads (CORS), it falls back to a normal <img> load,
@@ -351,7 +352,7 @@
       const r0 = v => Math.round(v || 0);
       const r1 = v => (Math.round((v || 0) * 10) / 10).toString();
       const unitLabel = (u, q) => u === "egg" ? (q === 1 ? "egg" : "eggs") : u;
-      const stepFor = u => (u === "g" ? 5 : u === "item" ? 0.5 : 1);
+      const stepFor = u => (u === "g" ? 5 : u === "portion" ? 0.5 : 1);
       const clean = v => Math.round(v * 100) / 100;
 
       function openSalad(s, suggested){
@@ -470,8 +471,15 @@
       }
 
       function suggest(){
-        const options = salads.length > 1 ? salads.filter(s => s.id !== last) : salads;
+        let options = salads.filter(s => !seen.has(s.id));
+        if (!options.length) {
+          // Every salad has been suggested: start a new cycle,
+          // but don't open with the one that just closed the previous cycle.
+          seen.clear();
+          options = salads.length > 1 ? salads.filter(s => s.id !== last) : salads;
+        }
         const s = options[Math.floor(Math.random() * options.length)];
+        seen.add(s.id);
         last = s.id;
         openSalad(s, true);
       }

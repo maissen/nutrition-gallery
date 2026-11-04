@@ -73,8 +73,8 @@ const SALADS = [
     name: "Creamy chicken pasta salad",
     category: "Creamy",
     score_out_of_10: 9.8,
-    thumbnail_url: "https://cdn.aboutamom.com/uploads/2024/06/Chicken-Pasta-Salad-Recipe-A_Classic-Chicken-Pasta-Salad-final-shot-2-500x500.jpg",
-    thumbnail_source_url: "https://www.rohlik.cz/chef/24237-testovinovy-salat-s-kurecim-masem",
+    thumbnail_url: "https://www.eatwell101.com/wp-content/uploads/2018/05/Chicken-Pasta-Salad-with-Creamy-Ranch-Dressing-recipe.jpg",
+    thumbnail_source_url: "https://www.eatwell101.com/wp-content/uploads/2018/05/Chicken-Pasta-Salad-with-Creamy-Ranch-Dressing-recipe.jpg",
     ingredients: [
       { ref: "wheat_pasta_dry", quantity: 45 },
       { ref: "chicken_breast", quantity: 100 },
